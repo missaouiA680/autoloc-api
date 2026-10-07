@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "contrat")
@@ -29,4 +30,18 @@ public class Contrat {
 
     @Column(nullable = false)
     private Boolean valide;
+
+    // OneToOne → Reservation
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_reservation", unique = true)
+    private Reservation reservation;
+
+    // ManyToOne → Employe
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_employe")
+    private Employe employe;
+
+    // OneToMany → Paiement
+    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Paiement> paiements;
 }
