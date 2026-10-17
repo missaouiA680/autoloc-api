@@ -1,19 +1,10 @@
 package tn.esprit.autoloc.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "maintenance")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Maintenance {
 
     @Id
@@ -29,8 +20,24 @@ public class Maintenance {
     @Column(length = 500)
     private String description;
 
-    // ManyToOne → Vehicule
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_vehicule")
     private Vehicule vehicule;
+
+    public Maintenance() {}
+
+    public Long getIdMaintenance() { return idMaintenance; }
+    public void setIdMaintenance(Long idMaintenance) { this.idMaintenance = idMaintenance; }
+
+    public LocalDate getDateDebut() { return dateDebut; }
+    public void setDateDebut(LocalDate dateDebut) { this.dateDebut = dateDebut; }
+
+    public LocalDate getDateFin() { return dateFin; }
+    public void setDateFin(LocalDate dateFin) { this.dateFin = dateFin; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public Vehicule getVehicule() { return vehicule; }
+    public void setVehicule(Vehicule vehicule) { this.vehicule = vehicule; }
 }

@@ -1,17 +1,9 @@
 package tn.esprit.autoloc.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "equipement")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Equipement {
 
     @Id
@@ -20,4 +12,17 @@ public class Equipement {
 
     @Column(nullable = false, length = 100)
     private String libelle;
+
+    public Equipement() {}
+
+    public Equipement(Long idEquipement, String libelle) {
+        this.idEquipement = idEquipement;
+        this.libelle = libelle;
+    }
+
+    public Long getIdEquipement() { return idEquipement; }
+    public void setIdEquipement(Long idEquipement) { this.idEquipement = idEquipement; }
+
+    public String getLibelle() { return libelle; }
+    public void setLibelle(String libelle) { this.libelle = libelle; }
 }

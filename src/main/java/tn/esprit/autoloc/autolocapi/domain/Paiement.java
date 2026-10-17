@@ -1,20 +1,11 @@
 package tn.esprit.autoloc.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "paiement")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Paiement {
 
     @Id
@@ -31,8 +22,24 @@ public class Paiement {
     @Column(nullable = false, length = 20)
     private ModePaiement modePaiement;
 
-    // ManyToOne → Contrat
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contrat")
     private Contrat contrat;
+
+    public Paiement() {}
+
+    public Long getIdPaiement() { return idPaiement; }
+    public void setIdPaiement(Long idPaiement) { this.idPaiement = idPaiement; }
+
+    public BigDecimal getMontant() { return montant; }
+    public void setMontant(BigDecimal montant) { this.montant = montant; }
+
+    public LocalDate getDatePaiement() { return datePaiement; }
+    public void setDatePaiement(LocalDate datePaiement) { this.datePaiement = datePaiement; }
+
+    public ModePaiement getModePaiement() { return modePaiement; }
+    public void setModePaiement(ModePaiement modePaiement) { this.modePaiement = modePaiement; }
+
+    public Contrat getContrat() { return contrat; }
+    public void setContrat(Contrat contrat) { this.contrat = contrat; }
 }

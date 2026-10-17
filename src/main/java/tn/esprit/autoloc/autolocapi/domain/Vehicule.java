@@ -1,20 +1,11 @@
 package tn.esprit.autoloc.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "vehicule")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Vehicule {
 
     @Id
@@ -41,16 +32,13 @@ public class Vehicule {
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
 
-    // ManyToOne → Agence
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_agence")
     private Agence agence;
 
-    // OneToMany → Maintenance
     @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Maintenance> maintenances;
 
-    // ManyToMany → Equipement
     @ManyToMany
     @JoinTable(
             name = "vehicule_equipement",
@@ -58,4 +46,36 @@ public class Vehicule {
             inverseJoinColumns = @JoinColumn(name = "id_equipement")
     )
     private List<Equipement> equipements;
+
+    public Vehicule() {}
+
+    public Long getIdVehicule() { return idVehicule; }
+    public void setIdVehicule(Long idVehicule) { this.idVehicule = idVehicule; }
+
+    public String getImmatriculation() { return immatriculation; }
+    public void setImmatriculation(String immatriculation) { this.immatriculation = immatriculation; }
+
+    public String getMarque() { return marque; }
+    public void setMarque(String marque) { this.marque = marque; }
+
+    public String getModele() { return modele; }
+    public void setModele(String modele) { this.modele = modele; }
+
+    public CategorieVehicule getCategorie() { return categorie; }
+    public void setCategorie(CategorieVehicule categorie) { this.categorie = categorie; }
+
+    public BigDecimal getTarifJournalier() { return tarifJournalier; }
+    public void setTarifJournalier(BigDecimal tarifJournalier) { this.tarifJournalier = tarifJournalier; }
+
+    public StatutVehicule getStatut() { return statut; }
+    public void setStatut(StatutVehicule statut) { this.statut = statut; }
+
+    public Agence getAgence() { return agence; }
+    public void setAgence(Agence agence) { this.agence = agence; }
+
+    public List<Maintenance> getMaintenances() { return maintenances; }
+    public void setMaintenances(List<Maintenance> maintenances) { this.maintenances = maintenances; }
+
+    public List<Equipement> getEquipements() { return equipements; }
+    public void setEquipements(List<Equipement> equipements) { this.equipements = equipements; }
 }

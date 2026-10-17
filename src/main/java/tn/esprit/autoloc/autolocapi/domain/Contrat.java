@@ -1,21 +1,12 @@
 package tn.esprit.autoloc.autolocapi.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "contrat")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Contrat {
 
     @Id
@@ -31,17 +22,37 @@ public class Contrat {
     @Column(nullable = false)
     private Boolean valide;
 
-    // OneToOne → Reservation
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reservation", unique = true)
     private Reservation reservation;
 
-    // ManyToOne → Employe
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_employe")
     private Employe employe;
 
-    // OneToMany → Paiement
     @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Paiement> paiements;
+
+    public Contrat() {}
+
+    public Long getIdContrat() { return idContrat; }
+    public void setIdContrat(Long idContrat) { this.idContrat = idContrat; }
+
+    public LocalDate getDateSignature() { return dateSignature; }
+    public void setDateSignature(LocalDate dateSignature) { this.dateSignature = dateSignature; }
+
+    public BigDecimal getMontantTotal() { return montantTotal; }
+    public void setMontantTotal(BigDecimal montantTotal) { this.montantTotal = montantTotal; }
+
+    public Boolean getValide() { return valide; }
+    public void setValide(Boolean valide) { this.valide = valide; }
+
+    public Reservation getReservation() { return reservation; }
+    public void setReservation(Reservation reservation) { this.reservation = reservation; }
+
+    public Employe getEmploye() { return employe; }
+    public void setEmploye(Employe employe) { this.employe = employe; }
+
+    public List<Paiement> getPaiements() { return paiements; }
+    public void setPaiements(List<Paiement> paiements) { this.paiements = paiements; }
 }
